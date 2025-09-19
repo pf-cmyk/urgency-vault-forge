@@ -39,28 +39,29 @@
 
     --radius: 1rem;
 
-    /* Observatory vault colors */
-    --vault-void: 0 0% 2%;
-    --vault-deep: 0 0% 4%;
-    --vault-surface: 0 0% 7%;
-    --vault-border: 0 0% 15%;
-    --vault-gold: 40 100% 55%;
-    --vault-gold-bright: 43 100% 65%;
-    --vault-gold-dim: 38 85% 45%;
-    --vault-text-primary: 0 0% 98%;
-    --vault-text-secondary: 0 0% 75%;
-    --vault-text-muted: 0 0% 55%;
+    /* Premium vault colors */
+    --vault-void: 0 0% 3%;
+    --vault-deep: 15 15% 8%;
+    --vault-surface: 20 12% 12%;
+    --vault-border: 25 8% 20%;
+    --vault-gold: 35 100% 58%;
+    --vault-gold-bright: 40 100% 68%;
+    --vault-gold-dim: 30 90% 48%;
+    --vault-text-primary: 0 0% 96%;
+    --vault-text-secondary: 35 20% 80%;
+    --vault-text-muted: 30 15% 65%;
 
     /* Premium gradients */
-    --gradient-observatory: radial-gradient(ellipse at top, hsl(var(--vault-deep)) 0%, hsl(var(--vault-void)) 100%);
-    --gradient-vault-surface: linear-gradient(135deg, hsl(var(--vault-surface)) 0%, hsl(var(--vault-deep)) 50%, hsl(var(--vault-surface)) 100%);
-    --gradient-gold-luminous: linear-gradient(135deg, hsl(var(--vault-gold-bright)) 0%, hsl(var(--vault-gold)) 50%, hsl(var(--vault-gold-dim)) 100%);
+    --gradient-observatory: radial-gradient(ellipse at center, hsl(var(--vault-deep)) 0%, hsl(var(--vault-void)) 100%);
+    --gradient-vault-surface: linear-gradient(145deg, hsl(var(--vault-surface)) 0%, hsl(var(--vault-deep)) 40%, hsl(var(--vault-surface)) 100%);
+    --gradient-gold-luminous: linear-gradient(135deg, hsl(var(--vault-gold-bright)) 0%, hsl(var(--vault-gold)) 60%, hsl(var(--vault-gold-dim)) 100%);
     --gradient-text-gold: linear-gradient(135deg, hsl(var(--vault-gold-bright)), hsl(var(--vault-gold)));
+    --gradient-vault-glow: radial-gradient(circle at center, hsl(var(--vault-gold) / 0.15) 0%, transparent 70%);
 
     /* Shadows & glows */
-    --shadow-vault-deep: 0 25px 50px -12px hsl(var(--vault-void) / 0.8);
-    --shadow-gold-glow: 0 0 60px hsl(var(--vault-gold) / 0.3);
-    --shadow-inner-glow: inset 0 1px 0 hsl(var(--vault-border));
+    --shadow-vault-deep: 0 30px 60px -15px hsl(var(--vault-void) / 0.9), 0 10px 25px -8px hsl(var(--vault-deep) / 0.8);
+    --shadow-gold-glow: 0 0 80px hsl(var(--vault-gold) / 0.4), 0 0 40px hsl(var(--vault-gold) / 0.3);
+    --shadow-inner-glow: inset 0 1px 0 hsl(var(--vault-border)), inset 0 0 20px hsl(var(--vault-gold) / 0.05);
 
     /* Typography */
     --font-observatory: 'Playfair Display', serif;
