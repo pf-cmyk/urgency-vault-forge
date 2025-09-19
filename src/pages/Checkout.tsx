@@ -46,7 +46,7 @@ const Checkout = () => {
           onClick={() => navigate('/')}
           className="text-vault-text-dim underline hover:text-vault-gold transition-colors text-sm"
         >
-          ← Return to Vault
+          ← Return to Homepage
         </button>
       </div>
     </div>
