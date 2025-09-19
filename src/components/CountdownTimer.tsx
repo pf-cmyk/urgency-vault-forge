@@ -28,9 +28,7 @@ const CountdownTimer = ({ initialTimeInSeconds = 3600, className = '' }: Countdo
 
   return (
     <div className={`inline-flex items-center gap-2 ${className}`}>
-      <span>⏳</span>
-      <span>{formatTime(timeLeft)}</span>
-      <span>Limited Time Access</span>
+      <span>Limited Time Access: {formatTime(timeLeft)}</span>
     </div>
   );
 };
