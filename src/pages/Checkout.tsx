@@ -1,9 +1,66 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from '@/components/ui/use-toast';
 import CountdownTimer from '@/components/CountdownTimer';
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [guestData, setGuestData] = useState({
+    email: '',
+    firstName: '',
+    lastName: ''
+  });
+
+  const handlePurchase = async () => {
+    setIsLoading(true);
+    
+    try {
+      // Validate guest data if user is not logged in
+      if (!user && !guestData.email) {
+        toast({
+          title: "Email Required",
+          description: "Please enter your email address to continue.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      const { data, error } = await supabase.functions.invoke('create-payment', {
+        body: {
+          customerData: user ? null : guestData
+        }
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data?.url) {
+        // Redirect to Stripe Checkout
+        window.open(data.url, '_blank');
+      } else {
+        throw new Error('No checkout URL received');
+      }
+    } catch (error: any) {
+      console.error('Payment error:', error);
+      toast({
+        title: "Payment Error",
+        description: error.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-vault-dark p-8 flex items-center justify-center font-vault">
@@ -28,9 +85,65 @@ const Checkout = () => {
           </ul>
         </div>
 
+        {!user && (
+          <div className="bg-vault-darker border border-vault-card rounded-lg p-6 mb-8">
+            <h3 className="text-lg font-bold text-vault-gold mb-4">Your Details</h3>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="firstName" className="text-vault-text">First Name</Label>
+                  <Input
+                    id="firstName"
+                    value={guestData.firstName}
+                    onChange={(e) => setGuestData({ ...guestData, firstName: e.target.value })}
+                    className="bg-vault-dark border-vault-card text-vault-text"
+                    placeholder="Your first name"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="lastName" className="text-vault-text">Last Name</Label>
+                  <Input
+                    id="lastName"
+                    value={guestData.lastName}
+                    onChange={(e) => setGuestData({ ...guestData, lastName: e.target.value })}
+                    className="bg-vault-dark border-vault-card text-vault-text"
+                    placeholder="Your last name"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-vault-text">Email Address *</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={guestData.email}
+                  onChange={(e) => setGuestData({ ...guestData, email: e.target.value })}
+                  className="bg-vault-dark border-vault-card text-vault-text"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+            </div>
+            <div className="mt-4 text-center">
+              <button 
+                onClick={() => navigate('/auth')}
+                className="text-vault-gold underline hover:text-vault-gold/80 transition-colors text-sm"
+              >
+                Already have an account? Sign in
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="space-y-4 mb-8">
-          <Button variant="vault" size="lg" className="w-full text-lg py-6">
-            Complete Purchase - A$247
+          <Button 
+            variant="vault" 
+            size="lg" 
+            className="w-full text-lg py-6"
+            onClick={handlePurchase}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Processing...' : 'Complete Purchase - A$247'}
           </Button>
           
           <p className="text-xs text-vault-text-dim">

@@ -2,20 +2,54 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import CountdownTimer from '@/components/CountdownTimer';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Index = () => {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+
+  const handleAuthAction = () => {
+    if (user) {
+      signOut();
+    } else {
+      navigate('/auth');
+    }
+  };
 
   return (
     <div className="min-h-screen font-observatory">
       
+      {/* Header */}
+      <header className="fixed top-0 left-0 w-full bg-vault-dark/80 backdrop-blur-sm border-b border-vault-border/20 z-40">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="text-xl font-bold bg-gradient-text-gold bg-clip-text text-transparent">
+            The Urgency Block
+          </div>
+          <div className="flex items-center gap-4">
+            {user && (
+              <span className="text-vault-text-muted text-sm">
+                Welcome, {user.email}
+              </span>
+            )}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleAuthAction}
+              className="border-vault-gold/20 text-vault-gold hover:bg-vault-gold/10"
+            >
+              {user ? 'Sign Out' : 'Sign In'}
+            </Button>
+          </div>
+        </div>
+      </header>
+
       {/* Fixed countdown timer */}
-      <div className="fixed top-6 right-6 bg-gradient-gold-luminous text-black px-8 py-4 rounded-xl font-bold text-base shadow-gold-glow z-50 border border-vault-gold/40 backdrop-blur-sm">
+      <div className="fixed top-20 right-6 bg-gradient-gold-luminous text-black px-8 py-4 rounded-xl font-bold text-base shadow-gold-glow z-50 border border-vault-gold/40 backdrop-blur-sm">
         <CountdownTimer initialTimeInSeconds={3592} />
       </div>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
+      <section className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden pt-20">
         <div className="absolute inset-0 bg-gradient-vault-glow"></div>
         <div className="absolute top-20 left-20 w-96 h-96 bg-vault-gold/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-20 w-80 h-80 bg-vault-gold-dim/5 rounded-full blur-3xl"></div>
