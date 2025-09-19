@@ -47,6 +47,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        vault: {
+          dark: "hsl(var(--vault-dark))",
+          darker: "hsl(var(--vault-darker))",
+          card: "hsl(var(--vault-card))",
+          gold: "hsl(var(--vault-gold))",
+          "gold-light": "hsl(var(--vault-gold-light))",
+          "text-muted": "hsl(var(--vault-text-muted))",
+          "text-dim": "hsl(var(--vault-text-dim))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -57,6 +66,16 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      fontFamily: {
+        vault: "var(--font-vault)",
+      },
+      backgroundImage: {
+        "gradient-vault": "var(--gradient-vault)",
+        "gradient-gold": "var(--gradient-gold)",
+      },
+      boxShadow: {
+        "vault-glow": "var(--gradient-glow)",
       },
       borderRadius: {
         lg: "var(--radius)",

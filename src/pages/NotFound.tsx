@@ -9,12 +9,16 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-gray-600">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 underline hover:text-blue-700">
-          Return to Home
+    <div className="min-h-screen bg-vault-dark p-8 flex items-center justify-center font-vault">
+      <div className="text-center bg-gradient-vault p-12 rounded-xl shadow-vault-glow">
+        <h1 className="text-6xl font-bold mb-6 bg-gradient-gold bg-clip-text text-transparent">404</h1>
+        <p className="text-xl text-vault-text-muted mb-8">The vault door you seek does not exist</p>
+        <p className="text-vault-text-dim italic mb-8">"Even masters sometimes take wrong turns in the halls of time." — Miguel</p>
+        <a 
+          href="/" 
+          className="inline-block bg-vault-gold text-black px-8 py-3 rounded-lg font-bold hover:bg-vault-gold-light transition-colors"
+        >
+          Return to the Vault
         </a>
       </div>
     </div>
