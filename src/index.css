@@ -59,9 +59,6 @@
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Keyframes */
-    --pulse-animation: pulse 1s infinite;
-
     --sidebar-background: 0 0% 6.3%;
     --sidebar-foreground: 0 0% 94.9%;
     --sidebar-primary: 36 100% 50%;
@@ -71,7 +68,9 @@
     --sidebar-border: 0 0% 9.4%;
     --sidebar-ring: 36 100% 50%;
   }
+}
 
+@layer base {
   * {
     @apply border-border;
   }
@@ -79,10 +78,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.6; }
-  100% { opacity: 1; }
 }
